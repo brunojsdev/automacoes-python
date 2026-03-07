@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hub de Automações Python</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Canvas para a animação de fundo -->
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="container">
+        <header>
+            <h1>Hub de Automações Python</h1>
+            <p class="subtitle">Scripts práticos para otimizar o dia a dia, centralizados em um só lugar.</p>
+        </header>
+
+        <main class="grid-automacoes">
+            
+            <!-- Card 1: Organizador de Arquivos (O seu original) -->
+            <div class="card">
+                <div class="card-icon">📁</div>
+                <h2>Organizador de Diretórios</h2>
+                <div>
+                    <span class="tech-mini">os</span>
+                    <span class="tech-mini">shutil</span>
+                </div>
+                <p>O script original! Classifica e move automaticamente arquivos de uma pasta bagunçada para subpastas baseadas em suas extensões (Imagens, Documentos, etc).</p>
+                <!-- Substitua o link abaixo pelo link real do seu repositório -->
+                <a href="https://github.com/SeuUsuario/OrganizadorArquivos" target="_blank" class="btn-github">Ver no GitHub</a>
+            </div>
+
+            <!-- Card 2: Backup Automático -->
+            <div class="card">
+                <div class="card-icon">s📦</div>
+                <h2>Backup Automático (Zip)</h2>
+                <div>
+                    <span class="tech-mini">zipfile</span>
+                    <span class="tech-mini">datetime</span>
+                </div>
+                <p>Compacta pastas importantes automaticamente e salva com a data e hora atual no nome do arquivo. Ideal para rotinas de segurança de dados.</p>
+                <a href="https://github.com/SeuUsuario/BackupAutomatico" target="_blank" class="btn-github">Ver no GitHub</a>
+            </div>
+
+            <!-- Card 3: Monitor de Sites -->
+            <div class="card">
+                <div class="card-icon">🌐</div>
+                <h2>Monitor de Status de Sites</h2>
+                <div>
+                    <span class="tech-mini">requests</span>
+                    <span class="tech-mini">csv</span>
+                </div>
+                <p>Verifica periodicamente se uma lista de sites está online (Status 200). Gera um log em CSV apontando a hora exata em que um site caiu ou voltou.</p>
+                <a href="https://github.com/SeuUsuario/MonitorDeSites" target="_blank" class="btn-github">Ver no GitHub</a>
+            </div>
+
+            <!-- Card 4: Conversor de Imagens -->
+            <div class="card">
+                <div class="card-icon">🖼️</div>
+                <h2>Conversor de Imagens em Massa</h2>
+                <div>
+                    <span class="tech-mini">Pillow (PIL)</span>
+                    <span class="tech-mini">Pathlib</span>
+                </div>
+                <p>Pega todas as imagens de uma pasta (ex: PNG ou BMP) e converte automaticamente para formatos mais leves como JPG ou WebP, otimizando espaço.</p>
+                <a href="https://github.com/SeuUsuario/ConversorImagens" target="_blank" class="btn-github">Ver no GitHub</a>
+            </div>
+
+            <!-- Card 5: Limpador de Arquivos Antigos -->
+            <div class="card">
+                <div class="card-icon">🗑️</div>
+                <h2>Limpador de Temporários</h2>
+                <div>
+                    <span class="tech-mini">os</span>
+                    <span class="tech-mini">time</span>
+                </div>
+                <p>Analisa a pasta de Downloads ou Temp e apaga automaticamente arquivos que não são modificados há mais de 30 dias. Mantém o PC limpo.</p>
+                <a href="https://github.com/SeuUsuario/LimpadorArquivos" target="_blank" class="btn-github">Ver no GitHub</a>
+            </div>
+
+            <!-- Card 6: Extrator de Textos -->
+            <div class="card">
+                <div class="card-icon">📄</div>
+                <h2>Extrator de Texto de PDF</h2>
+                <div>
+                    <span class="tech-mini">PyPDF2</span>
+                    <span class="tech-mini">os</span>
+                </div>
+                <p>Lê múltiplos arquivos PDF em um diretório e extrai todo o texto contido neles, salvando o resultado em arquivos .txt para fácil pesquisa.</p>
+                <a href="https://github.com/SeuUsuario/ExtratorPDF" target="_blank" class="btn-github">Ver no GitHub</a>
+            </div>
+
+        </main>
+
+        <footer>
+            <p>Criado com 💛 e Python | <a href="https://github.com/SeuUsuario" target="_blank" style="color: var(--borda-clara);">Meu GitHub</a></p>
+        </footer>
+    </div>
+
+<script src="script.js"></script>
+  
+</body>
+</html>
