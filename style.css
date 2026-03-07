@@ -1,0 +1,177 @@
+        /* ==========================================
+           PALETA DE CORES E VARIÁVEIS
+           ========================================== */
+        :root {
+            /* FUNDOS */
+            --fundo-claro: #150136;
+            --fundo-medio: #090024;
+            --fundo-escuro: #040014;
+
+            /* DESTAQUES */
+            --destaque-claro: #ffdd00;
+            --destaque-medio: #ffaa00;
+            --destaque-escuro: #ff9900;
+
+            /* BORDAS */
+            --borda-clara: #5752ff;
+            --borda-escura: #5a47ff;
+
+            /* TEXTOS */
+            --textos: #c9e4ff;
+        }
+
+        /* ==========================================
+           RESET E ESTILOS GERAIS
+           ========================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--fundo-escuro);
+            color: var(--textos);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ==========================================
+           CANVAS BACKGROUND (Digital Rain)
+           ========================================== */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1; /* Fica atrás de todo o conteúdo */
+        }
+
+        /* ==========================================
+           LAYOUT PRINCIPAL E GRID
+           ========================================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 30px;
+            background: rgba(9, 0, 36, 0.7); /* Fundo médio com transparência */
+            border-bottom: 3px solid var(--borda-clara);
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+        }
+
+        h1 {
+            color: var(--destaque-claro);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 221, 0, 0.3);
+        }
+
+        .subtitle {
+            color: var(--borda-clara);
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .grid-automacoes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        /* ==========================================
+           CARDS DE AUTOMAÇÃO
+           ========================================== */
+        .card {
+            background: rgba(21, 1, 54, 0.85); /* Fundo claro com transparência */
+            border: 1px solid var(--borda-escura);
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--destaque-medio);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 170, 0, 0.2);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            color: var(--destaque-medio);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: var(--textos);
+            line-height: 1.6;
+            margin-bottom: 25px;
+            flex-grow: 1; /* Faz o botão ficar sempre embaixo */
+            font-size: 0.95rem;
+        }
+
+        .tech-mini {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border: 1px solid var(--borda-clara);
+            border-radius: 4px;
+            margin-right: 5px;
+            margin-bottom: 15px;
+            color: var(--borda-clara);
+        }
+
+        .btn-github {
+            display: inline-block;
+            text-align: center;
+            background: transparent;
+            color: var(--destaque-claro);
+            text-decoration: none;
+            padding: 12px 20px;
+            border: 2px solid var(--destaque-escuro);
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .btn-github:hover {
+            background: var(--destaque-escuro);
+            color: var(--fundo-escuro);
+            box-shadow: 0 0 15px var(--destaque-escuro);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 20px;
+            color: var(--textos);
+            border-top: 1px solid var(--borda-escura);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .grid-automacoes { grid-template-columns: 1fr; }
+        }
