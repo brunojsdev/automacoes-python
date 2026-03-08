@@ -83,6 +83,36 @@ h1 {
     font-weight: bold;
 }
 
+/* --- ESTILO DO BOTÃO VOLTAR --- */
+.back-portfolio-btn {
+    position: fixed;      /* Fixa o elemento em relação à janela do navegador */
+    top: 20px;            /* Distância do topo da tela */
+    left: 20px;           /* Distância da esquerda da tela */
+    z-index: 9999;        /* Garante que fique acima de qualquer outro elemento ou animação */
+    
+    background: rgba(21, 1, 54, 0.7);
+    border: 1px solid #5752ff;
+    color: #c9e4ff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+
+.back-portfolio-btn:hover {
+    background: #090024;
+    border-color: #ffdd00;
+    color: #ffdd00;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(87, 82, 255, 0.4);
+}
+
 /* ==========================================================================
    GRID E CARDS
    ========================================================================== */
