@@ -33,7 +33,7 @@
 body {
     color: var(--textos);
     min-height: 100vh;
-    overflow-x: hidden
+    overflow-x: hidden;
     background: linear-gradient(
     135deg, 
     var(--fundo-escuro), 
@@ -46,7 +46,6 @@ body {
     var(--fundo-medio), 
     var(--fundo-escuro)
   );
-}
 
 /* Background Canvas */
 #bg-canvas {
