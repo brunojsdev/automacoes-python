@@ -35,17 +35,7 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     background: linear-gradient(
-    135deg, 
-    var(--fundo-escuro), 
-    var(--fundo-medio), 
-    var(--fundo-claro), 
-    var(--fundo-medio), 
-    var(--fundo-escuro), 
-    var(--fundo-medio), 
-    var(--fundo-claro), 
-    var(--fundo-medio), 
-    var(--fundo-escuro)
-  );
+    135deg, var(--fundo-escuro), var(--fundo-medio), var(--fundo-claro), var(--fundo-medio), var(--fundo-escuro), var(--fundo-medio), var(--fundo-claro), var(--fundo-medio), var(--fundo-escuro));
 
 /* Background Canvas */
 #bg-canvas {
@@ -259,24 +249,21 @@ footer a {
 }
 
 /* ==========================================================================
-   RESPONSIVIDADE DO BOTÃO MOBILE
+   LÓGICA EXCLUSIVA MOBILE (Botão)
    ========================================================================== */
 @media (max-width: 768px) {
-    .back-portfolio-btn {
-        transition: all 0.3s ease-in-out;
-    }
-
-    /* Classe adicionada via JavaScript quando o usuário rola a página */
-    .back-portfolio-btn.scrolled .btn-text {
-        display: none; /* Esconde o texto */
-    }
-
+    /* Quando a classe .scrolled for adicionada pelo JS */
     .back-portfolio-btn.scrolled {
-        padding: 12px;
-        border-radius: 50%; /* Deixa o botão redondinho, apenas com a seta */
         width: 45px;
         height: 45px;
+        padding: 0;
         justify-content: center;
-        background: rgba(21, 1, 54, 0.85);
+        border-radius: 50%; /* Vira um círculo */
+        left: 10px;
+        top: 10px;
+    }
+
+    .back-portfolio-btn.scrolled .btn-text {
+        display: none; /* Esconde o texto, sobra só a seta */
     }
 }
