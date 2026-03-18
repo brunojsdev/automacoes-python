@@ -74,10 +74,15 @@ header {
     text-align: center;
     margin-bottom: 50px;
     padding: 40px;
-    background: rgba(9, 0, 36, 0.7);
-    border-bottom: 4px solid var(--borda-clara);
     border-radius: 20px;
-    backdrop-filter: blur(8px);
+    
+    /* Efeito Vidro */
+    background: rgba(21, 1, 54, 0.25); /* Fundo mais transparente */
+    backdrop-filter: blur(16px) saturate(120%); /* Desfoque maior e saturação para cores vivas */
+    -webkit-backdrop-filter: blur(16px) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Borda superior refletindo luz */
+    border-bottom: 2px solid var(--borda-clara); /* Mantendo seu destaque original embaixo */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); /* Sombra para destacar do fundo */
 }
 
 h1 {
@@ -134,19 +139,24 @@ h1 {
 }
 
 .card {
-    background: rgba(21, 1, 54, 0.8);
-    border: 2px solid var(--borda-escura);
     border-radius: 15px;
     padding: 30px;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     display: flex;
     flex-direction: column;
-    backdrop-filter: blur(12px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    
+    /* Efeito Vidro */
+    background: rgba(21, 1, 54, 0.20); /* Bem transparente */
+    backdrop-filter: blur(16px) saturate(120%);
+    -webkit-backdrop-filter: blur(16px) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Borda de luz */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
 
 .card:hover {
     transform: scale(1.03);
     border-color: var(--destaque-claro);
+    background: rgba(21, 1, 54, 0.4); /* Fica levemente mais opaco no hover */
     box-shadow: 0 0 25px rgba(87, 82, 255, 0.4);
 }
 
@@ -246,4 +256,27 @@ footer a {
     color: var(--destaque-medio);
     text-decoration: none;
     font-weight: bold;
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE DO BOTÃO MOBILE
+   ========================================================================== */
+@media (max-width: 768px) {
+    .back-portfolio-btn {
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* Classe adicionada via JavaScript quando o usuário rola a página */
+    .back-portfolio-btn.scrolled .btn-text {
+        display: none; /* Esconde o texto */
+    }
+
+    .back-portfolio-btn.scrolled {
+        padding: 12px;
+        border-radius: 50%; /* Deixa o botão redondinho, apenas com a seta */
+        width: 45px;
+        height: 45px;
+        justify-content: center;
+        background: rgba(21, 1, 54, 0.85);
+    }
 }
