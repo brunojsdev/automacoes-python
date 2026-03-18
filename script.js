@@ -1,5 +1,25 @@
 /* ==========================================================================
-   ANIMAÇÃO DE FUNDO (CANVAS)
+   1.COMPORTAMENTO DO BOTÃO DE VOLTAR NO SCROLL (APENAS MOBILE)
+   ========================================================================== */
+window.addEventListener('scroll', () => {
+    const backBtn = document.getElementById('back-btn');
+    
+    // Verifica se a largura da janela é de um dispositivo mobile (até 768px)
+    if (window.innerWidth <= 768) {
+        // Se a rolagem passar de 50px, encolhe o botão
+        if (window.scrollY > 50) {
+            backBtn.classList.add('scrolled');
+        } else {
+            backBtn.classList.remove('scrolled');
+        }
+    } else {
+        // Garante que a classe seja removida caso o usuário redimensione a tela para desktop
+        backBtn.classList.remove('scrolled');
+    }
+});
+
+/* ==========================================================================
+   2.ANIMAÇÃO DE FUNDO (CANVAS)
    ========================================================================== */
 
 const canvas = document.getElementById('bg-canvas');
