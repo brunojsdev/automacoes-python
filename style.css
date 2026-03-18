@@ -64,15 +64,17 @@ header {
     text-align: center;
     margin-bottom: 50px;
     padding: 40px;
-    border-radius: 20px;
+    border-radius: 0 0 20px 20px; /* Arredonda só embaixo se quiser, ou mantenha 20px */
     
-    /* Efeito Vidro */
-    background: rgba(21, 1, 54, 0.25); /* Fundo mais transparente */
-    backdrop-filter: blur(16px) saturate(120%); /* Desfoque maior e saturação para cores vivas */
-    -webkit-backdrop-filter: blur(16px) saturate(120%);
-    border: 1px solid rgba(255, 255, 255, 0.1); /* Borda superior refletindo luz */
-    border-bottom: 2px solid var(--borda-clara); /* Mantendo seu destaque original embaixo */
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); /* Sombra para destacar do fundo */
+    /* Glassmorphism Transparente e Escuro */
+    background: rgba(0, 0, 0, 0.4) !important; 
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    
+    /* Bordas: Apenas a inferior em destaque */
+    border: none !important;
+    border-bottom: 5px solid var(--borda-clara) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 h1 {
@@ -129,18 +131,13 @@ h1 {
 }
 
 .card {
+    background: rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     padding: 30px;
-    display: flex;
-    flex-direction: column;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    
-    /* Efeito Vidro */
-    background: rgba(21, 1, 54, 0.20); /* Bem transparente */
-    backdrop-filter: blur(16px) saturate(120%);
-    -webkit-backdrop-filter: blur(16px) saturate(120%);
-    border: 1px solid rgba(255, 255, 255, 0.1); /* Borda de luz */
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
 }
 
 .card:hover {
@@ -252,18 +249,61 @@ footer a {
    LÓGICA EXCLUSIVA MOBILE (Botão)
    ========================================================================== */
 @media (max-width: 768px) {
-    /* Quando a classe .scrolled for adicionada pelo JS */
-    .back-portfolio-btn.scrolled {
-        width: 45px;
-        height: 45px;
-        padding: 0;
-        justify-content: center;
-        border-radius: 50%; /* Vira um círculo */
-        left: 10px;
-        top: 10px;
+    /* 1. Reduzindo o Header e afastando do botão de voltar */
+    header {
+        margin-top: 60px; /* Cria espaço para o botão não ficar em cima */
+        padding: 20px 15px; /* Reduz o tamanho interno */
+        margin-bottom: 30px;
     }
 
+    h1 {
+        font-size: 1.6rem; /* Título menor */
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+    }
+
+    /* 2. Reduzindo o tamanho dos Cards */
+    .grid-automacoes {
+        gap: 15px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .card h2 {
+        font-size: 1.2rem;
+    }
+
+    .card p {
+        font-size: 0.85rem;
+        margin-bottom: 15px;
+    }
+
+    /* 3. Reduzindo os botões do GitHub */
+    .btn-github {
+        padding: 8px;
+        font-size: 0.8rem;
+    }
+
+    /* 4. Lógica do botão de voltar (ajuste de posição) */
+    .back-portfolio-btn {
+        top: 10px;
+        left: 10px;
+        font-size: 0.8rem;
+        padding: 8px 12px;
+    }
+
+    .back-portfolio-btn.scrolled {
+        width: 38px;
+        height: 38px;
+        top: 10px;
+        left: 10px;
+    }
+    
     .back-portfolio-btn.scrolled .btn-text {
-        display: none; /* Esconde o texto, sobra só a seta */
+        display: none;
     }
 }
