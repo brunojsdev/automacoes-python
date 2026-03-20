@@ -341,7 +341,7 @@ footer a {
     }
 
     .back-btn.scrolled .btn-text::before {
-        content: "Voltar";
+        content: "Portfolio";
         font-size: 1.1rem;
         font-weight: 700;
         visibility: visible;
