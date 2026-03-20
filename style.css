@@ -319,6 +319,8 @@ footer a {
         height: 38px;
         top: 10px;
         left: 10px;
+        padding: 0;
+        justify-content: center;
     }
     
     .back-portfolio-btn.scrolled .btn-text {
