@@ -127,11 +127,17 @@ h1 {
    ========================================================================== */
 .grid-automacoes {
     display: grid;
+    /* auto-fit garante que os cards tenham a mesma altura na linha */
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 25px;
 }
 
 .card {
+    /* --- SOLUÇÃO AQUI --- */
+    display: flex;          /* Transforma o card em flex container */
+    flex-direction: column; /* Alinha o conteúdo verticalmente (em coluna) */
+    /* -------------------- */
+
     background: rgba(255, 255, 255, 0.08) !important;
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
@@ -144,7 +150,7 @@ h1 {
 .card:hover {
     transform: scale(1.03);
     border-color: var(--destaque-claro);
-    background: rgba(21, 1, 54, 0.4); /* Fica levemente mais opaco no hover */
+    background: rgba(21, 1, 54, 0.4);
     box-shadow: 0 0 25px rgba(87, 82, 255, 0.4);
 }
 
@@ -177,7 +183,10 @@ h1 {
     font-size: 0.95rem;
     line-height: 1.5;
     margin-bottom: 25px;
-    flex-grow: 1;
+    
+    /* --- COMPLEMENTO DA SOLUÇÃO --- */
+    flex-grow: 1; /* Faz o parágrafo "esticar" para ocupar todo o espaço disponível */
+    /* ------------------------------ */
 }
 
 /* ==========================================================================
