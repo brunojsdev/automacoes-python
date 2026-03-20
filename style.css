@@ -202,33 +202,40 @@ h1 {
 }
 
 /* ==========================================================================
-   BARRA DE ROLAGEM GLOBAL (Chrome, Edge, Safari e Firefox)
+   3. BARRA DE ROLAGEM LATERAL CUSTOMIZADA 
    ========================================================================== */
-
-/* Configuração para Firefox */
-* {
-    scrollbar-width: thin;
-    scrollbar-color: #4A2B99 #150136; /* Cursor (Roxo) e Trilho (Fundo) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background-color: var(--fundo-escuro); /* Garante que não haja fundo branco */
 }
 
-/* Configuração para Chrome, Edge e Safari */
-html::-webkit-scrollbar {
-    width: 10px; /* Largura da barra */
+/* Esconde os botões de seta que causam os blocos brancos nas pontas */
+::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
-html::-webkit-scrollbar-track {
-    background: #150136; /* Mesma cor do seu --fundo-claro */
+/* O canto onde as barras se encontram */
+::-webkit-scrollbar-corner {
+  background-color: var(--fundo-escuro);
 }
 
-html::-webkit-scrollbar-thumb {
-    background-color: #4A2B99; /* Roxo principal */
-    border-radius: 20px; /* Deixa redondinha */
-    border: 2px solid #150136; /* Cria um pequeno espaçamento elegante */
+::-webkit-scrollbar-track {
+  background: var(--fundo-claro);
+  border-radius: 10px;
 }
 
-html::-webkit-scrollbar-thumb:hover {
-    background-color: #ffaa00; /* Destaque Amarelo ao passar o mouse */
-    box-shadow: 0 0 10px #ffaa00; /* Efeito neon sutil no hover */
+::-webkit-scrollbar-thumb {
+  background: #4a2b99;
+  border-radius: 10px;
+  border: 2px solid var(--fundo-claro); /* Espaçamento para o trilho */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--destaque-medio);
+  cursor: pointer;
 }
    
 /* ==========================================================================
