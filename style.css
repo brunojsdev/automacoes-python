@@ -201,29 +201,35 @@ h1 {
 }
 
 /* ==========================================================================
-   BARRA DE ROLAGEM LATERAL CUSTOMIZADA 
+   BARRA DE ROLAGEM GLOBAL (Chrome, Edge, Safari e Firefox)
    ========================================================================== */
-::-webkit-scrollbar { 
-    width: 8px; 
+
+/* Configuração para Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #4A2B99 #150136; /* Cursor (Roxo) e Trilho (Fundo) */
 }
 
-::-webkit-scrollbar-track { 
-    background: #150136; /* Cor idêntica à var(--fundo-claro) */
+/* Configuração para Chrome, Edge e Safari */
+html::-webkit-scrollbar {
+    width: 10px; /* Largura da barra */
 }
 
-::-webkit-scrollbar-thumb {  
-    background: #4A2B99;  
-    border-radius: 8px;  
+html::-webkit-scrollbar-track {
+    background: #150136; /* Mesma cor do seu --fundo-claro */
 }
 
-::-webkit-scrollbar-thumb:hover { 
-    background: #ffaa00; /* Cor idêntica à var(--destaque-medio) */
+html::-webkit-scrollbar-thumb {
+    background-color: #4A2B99; /* Roxo principal */
+    border-radius: 20px; /* Deixa redondinha */
+    border: 2px solid #150136; /* Cria um pequeno espaçamento elegante */
 }
 
-/* Remove botões de seta para evitar blocos brancos em navegadores antigos */
-::-webkit-scrollbar-button {
-    display: none;
+html::-webkit-scrollbar-thumb:hover {
+    background-color: #ffaa00; /* Destaque Amarelo ao passar o mouse */
+    box-shadow: 0 0 10px #ffaa00; /* Efeito neon sutil no hover */
 }
+   
 /* ==========================================================================
    RODAPÉ
    ========================================================================== */
