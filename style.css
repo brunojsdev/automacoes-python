@@ -42,9 +42,7 @@
 }
 
 body {
-  position: relative;
-  display: flex;
-  flex-direction: column;
+  color: var(--textos);
   min-height: 100vh;
   overflow-x: hidden;
   color: var(--textos);
