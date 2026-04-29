@@ -1,126 +1,195 @@
-<!DOCTYPE html>
+<!doctype html>
+<!--
+  ==========================================================================
+  ÍNDICE DO ARQUIVO (HTML)
+  1. CONFIGURAÇÕES E METADADOS (<head>)
+  2. FUNDO INTERATIVO (Canvas)
+  3. NAVEGAÇÃO EXTERNA (Botão Voltar)
+  4. CONTROLES DE INTERFACE (Botão de Tema)
+  5. CABEÇALHO DO HUB (Título e Subtítulo)
+  6. GRID DE AUTOMAÇÕES (Cards de Projetos)
+  7. RODAPÉ E SCRIPTS
+  ==========================================================================
+-->
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hub de Automações Python</title>
 
     <!-- Ícone da aba do navegador -->
-    <link rel="icon" type="image/png" href="./img/fi-port.png">
-    
+    <link rel="icon" type="image/png" href="./img/fi-port.png" />
+
     <!-- Importação do arquivo de estilos externo -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
 
     <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script></head>
-    
-<body>
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
 
-    <!-- Botão Voltar ao Portfolio -->
-    <a href="https://brunojsilveira.vercel.app/" id="back-btn" onclick="window.close();" class="back-btn">
-    <div class="btn-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left">
-            <path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>
-        </svg>
-    </div>
-    <span class="btn-text">Portfolio</span>
-    </a>
-
-    
-    <!-- Canvas para a animação de fundo (Digital Rain) -->
+  <body>
+    <!-- 2. FUNDO INTERATIVO: Camada para animação de partículas espaciais -->
     <canvas id="bg-canvas"></canvas>
 
+    <!-- 3. NAVEGAÇÃO EXTERNA: Link para retorno ao portfólio principal -->
+    <a href="../index.html" id="back-btn" class="back-portfolio-btn">
+      <i data-lucide="arrow-big-left" class="btn-icon"></i>
+      <span class="btn-text">Voltar ao Portfolio</span>
+    </a>
+
+    <!-- 4. CONTROLES DE INTERFACE: Alternância entre Modo Claro e Escuro -->
+    <button
+      id="theme-toggle-btn"
+      class="theme-toggle-btn"
+      title="Alternar Modo Claro/Escuro"
+    >
+      <!-- Ícone Modo Escuro (Estrela) -->
+      <i data-lucide="star" class="img-dark-mode"></i>
+      <!-- Ícone Modo Claro (Estrela-off) -->
+      <i data-lucide="star-off" class="img-light-mode"></i>
+    </button>
+
     <div class="container">
-        <!-- Cabeçalho do Portfólio -->
-        <header>
-            <h1>Hub de Automações Python</h1>
-            <p class="subtitle">Scripts práticos para otimizar o dia a dia, centralizados em um só lugar.</p>
-        </header>
+      <!-- 5. CABEÇALHO DO HUB: Seção de introdução -->
+      <header>
+        <h1>Hub de Automações Python</h1>
+        <p class="subtitle">
+          Scripts práticos para otimizar o dia a dia, centralizados em um só
+          lugar.
+        </p>
+      </header>
 
-        <!-- Grid Principal de Cards -->
-        <main class="grid-automacoes">
-            
-            <!-- Card 1: Organizador de Diretórios -->
-            <div class="card">
-                <div class="card-icon">📁</div>
-                <h2>Organizador de Diretórios</h2>
-                <div class="tech-stack">
-                    <span class="tech-mini">os</span>
-                    <span class="tech-mini">shutil</span>
-                </div>
-                <p>Classifica e move automaticamente arquivos de uma pasta para subpastas baseadas em extensões.</p>
-                <a href="https://github.com/brunojsdev/organizador-de-arquivos" target="_blank" class="btn-github">Ver no GitHub</a>
-            </div>
+      <!-- 6. GRID DE AUTOMAÇÕES: Catálogo de scripts e módulos -->
+      <main class="grid-automacoes">
+        <!-- Card 1: Organizador de Diretórios -->
+        <div class="card">
+          <div class="card-icon">📁</div>
+          <h2>Organizador de Diretórios</h2>
+          <div class="tech-stack">
+            <span class="tech-mini">os</span>
+            <span class="tech-mini">shutil</span>
+          </div>
+          <p>
+            Classifica e move automaticamente arquivos de uma pasta para
+            subpastas baseadas em extensões.
+          </p>
+          <a
+            href="https://github.com/brunojsdev/organizador-de-arquivos"
+            target="_blank"
+            class="btn-github"
+            >Ver no GitHub</a
+          >
+        </div>
 
-            <!-- Card 2: Backup Automático -->
-            <div class="card">
-                <div class="card-icon">📦</div>
-                <h2>Backup Automático (Zip)</h2>
-                <div class="tech-stack">
-                    <span class="tech-mini">zipfile</span>
-                    <span class="tech-mini">datetime</span>
-                </div>
-                <p>Compacta pastas importantes automaticamente e salva com timestamp para controle de versão.</p>
-                <a href="https://github.com/brunojsdev/backup-automatico" target="_blank" class="btn-github">Ver no GitHub</a>
-            </div>
+        <!-- Card 2: Backup Automático -->
+        <div class="card">
+          <div class="card-icon">📦</div>
+          <h2>Backup Automático (Zip)</h2>
+          <div class="tech-stack">
+            <span class="tech-mini">zipfile</span>
+            <span class="tech-mini">datetime</span>
+          </div>
+          <p>
+            Compacta pastas importantes automaticamente e salva com timestamp
+            para controle de versão.
+          </p>
+          <a
+            href="https://github.com/brunojsdev/backup-automatico"
+            target="_blank"
+            class="btn-github"
+            >Ver no GitHub</a
+          >
+        </div>
 
-            <!-- Card 3: Monitor de Sites -->
-            <div class="card">
-                <div class="card-icon">🌐</div>
-                <h2>Monitor de Status</h2>
-                <div class="tech-stack">
-                    <span class="tech-mini">requests</span>
-                    <span class="tech-mini">csv</span>
-                </div>
-                <p>Verifica periodicamente se sites estão online e gera um log detalhado de disponibilidade.</p>
-                <a href="https://github.com/brunojsdev/monitor-de-status" target="_blank" class="btn-github">Ver no GitHub</a>
-            </div>
+        <!-- Card 3: Monitor de Sites -->
+        <div class="card">
+          <div class="card-icon">🌐</div>
+          <h2>Monitor de Status</h2>
+          <div class="tech-stack">
+            <span class="tech-mini">requests</span>
+            <span class="tech-mini">csv</span>
+          </div>
+          <p>
+            Verifica periodicamente se sites estão online e gera um log
+            detalhado de disponibilidade.
+          </p>
+          <a
+            href="https://github.com/brunojsdev/monitor-de-status"
+            target="_blank"
+            class="btn-github"
+            >Ver no GitHub</a
+          >
+        </div>
 
-            <!-- Card 4: Conversor de Imagens -->
-            <div class="card">
-                <div class="card-icon">🖼️</div>
-                <h2>Conversor de Imagens</h2>
-                <div class="tech-stack">
-                    <span class="tech-mini">Pillow</span>
-                    <span class="tech-mini">Pathlib</span>
-                </div>
-                <p>Converte imagens em massa para formatos otimizados como WebP ou JPG para economia de espaço.</p>
-                <a href="https://github.com/brunojsdev/conversor-de-imagens" target="_blank" class="btn-github">Ver no GitHub</a>
-            </div>
+        <!-- Card 4: Conversor de Imagens -->
+        <div class="card">
+          <div class="card-icon">🖼️</div>
+          <h2>Conversor de Imagens</h2>
+          <div class="tech-stack">
+            <span class="tech-mini">Pillow</span>
+            <span class="tech-mini">Pathlib</span>
+          </div>
+          <p>
+            Converte imagens em massa para formatos otimizados como WebP ou JPG
+            para economia de espaço.
+          </p>
+          <a
+            href="https://github.com/brunojsdev/conversor-de-imagens"
+            target="_blank"
+            class="btn-github"
+            >Ver no GitHub</a
+          >
+        </div>
 
-            <!-- Card 5: Limpador de Temporários -->
-            <div class="card">
-                <div class="card-icon">🗑️</div>
-                <h2>Limpador de Temporários</h2>
-                <div class="tech-stack">
-                    <span class="tech-mini">os</span>
-                    <span class="tech-mini">time</span>
-                </div>
-                <p>Analisa e deleta automaticamente arquivos que não são modificados há mais de 30 dias.</p>
-                <a href="https://github.com/brunojsdev/limpador-de-temporarios" target="_blank" class="btn-github">Ver no GitHub</a>
-            </div>
+        <!-- Card 5: Limpador de Temporários -->
+        <div class="card">
+          <div class="card-icon">🗑️</div>
+          <h2>Limpador de Temporários</h2>
+          <div class="tech-stack">
+            <span class="tech-mini">os</span>
+            <span class="tech-mini">time</span>
+          </div>
+          <p>
+            Analisa e deleta automaticamente arquivos que não são modificados há
+            mais de 30 dias.
+          </p>
+          <a
+            href="https://github.com/brunojsdev/limpador-de-temporarios"
+            target="_blank"
+            class="btn-github"
+            >Ver no GitHub</a
+          >
+        </div>
 
-            <!-- Card 6: Extrator de PDF -->
-            <div class="card">
-                <div class="card-icon">📄</div>
-                <h2>Extrator de PDF</h2>
-                <div class="tech-stack">
-                    <span class="tech-mini">PyPDF2</span>
-                    <span class="tech-mini">os</span>
-                </div>
-                <p>Extrai o texto de múltiplos documentos PDF e converte em arquivos de texto editáveis.</p>
-                <a href="https://github.com/brunojsdev/extrator-de-pdf" target="_blank" class="btn-github">Ver no GitHub</a>
-            </div>
-
-        </main>
-
-        <!-- Rodapé -->
-        <footer>
-        &copy; 2026 Bruno J. Silveira. Todos os direitos reservados.
-        </footer>
+        <!-- Card 6: Extrator de PDF -->
+        <div class="card">
+          <div class="card-icon">📄</div>
+          <h2>Extrator de PDF</h2>
+          <div class="tech-stack">
+            <span class="tech-mini">PyPDF2</span>
+            <span class="tech-mini">os</span>
+          </div>
+          <p>
+            Extrai o texto de múltiplos documentos PDF e converte em arquivos de
+            texto editáveis.
+          </p>
+          <a
+            href="https://github.com/brunojsdev/extrator-de-pdf"
+            target="_blank"
+            class="btn-github"
+            >Ver no GitHub</a
+          >
+        </div>
+      </main>
     </div>
+    <!-- Fim do Container -->
 
-    <!-- Importação do script de animação externo -->
+    <!-- 7. RODAPÉ E SCRIPTS -->
+    <footer>
+      &copy; 2026 Bruno J. Silveira. Todos os direitos reservados.
+    </footer>
+
+    <!-- Lógica de temas e motor de partículas -->
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
