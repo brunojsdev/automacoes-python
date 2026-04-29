@@ -1,69 +1,114 @@
-/* ==========================================================================
-   1.COMPORTAMENTO DO BOTÃO DE VOLTAR NO SCROLL (APENAS MOBILE)
-   ========================================================================== */
-window.addEventListener('scroll', () => {
-    const backBtn = document.getElementById('back-btn');
-    
-    // Só aplica a lógica se for Mobile (menos de 768px)
-    if (window.innerWidth <= 768) {
-        if (window.scrollY > 50) {
-            backBtn.classList.add('scrolled');
-        } else {
-            backBtn.classList.remove('scrolled');
-        }
+/*
+  ==========================================================================
+  ÍNDICE DO ARQUIVO (JavaScript)
+  1. COMPORTAMENTO DE NAVEGAÇÃO E TEMA
+  2. MOTOR DE ANIMAÇÃO (Canvas API - Efeito Espacial)
+     - Configurações e Variáveis
+     - Classe Star (Estrelas Geométricas)
+     - Classe ShootingStar (Cometas)
+     - Inicialização e Ciclo de Animação
+  ==========================================================================
+*/
+
+/* 1. COMPORTAMENTO DE NAVEGAÇÃO E TEMA: Sincronização e persistência de UI */
+
+window.addEventListener("scroll", () => {
+  const backBtn = document.getElementById("back-btn");
+  const themeBtn = document.getElementById("theme-toggle-btn");
+
+  if (window.innerWidth <= 768) {
+    if (window.scrollY > 50) {
+      backBtn.classList.add("scrolled");
+      themeBtn.classList.add("scrolled");
     } else {
-        // No Desktop ele nunca terá a classe scrolled
-        backBtn.classList.remove('scrolled');
+      backBtn.classList.remove("scrolled");
+      themeBtn.classList.remove("scrolled");
     }
+  } else {
+    backBtn.classList.remove("scrolled");
+    themeBtn.classList.remove("scrolled");
+  }
 });
 
-/* ==========================================================================
-   2. ANIMAÇÃO DE FUNDO ESPACIAL
-   ========================================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+  if (typeof lucide !== "undefined") {
+    lucide.createIcons();
+  }
+  if (window.refreshSpace) window.refreshSpace();
+});
 
-const canvas = document.getElementById('bg-canvas');
+const themeToggle = document.getElementById("theme-toggle-btn");
+const body = document.body;
+
+if (localStorage.getItem("theme") === "light") {
+  body.classList.add("light-mode");
+}
+
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    body.classList.toggle("light-mode");
+    const isLight = body.classList.contains("light-mode");
+    localStorage.setItem("theme", isLight ? "light" : "dark");
+    if (window.refreshSpace) window.refreshSpace();
+  });
+}
+
+/* 2. MOTOR DE ANIMAÇÃO: Renderização do fundo espacial interativo */
+const canvas = document.getElementById("bg-canvas");
 
 if (canvas) {
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext("2d");
   let width, height;
   let stars = [];
   let shootingStars = [];
 
-  // PARTE IMPORTANTE 1: Paleta de cores das estrelas
-  const starColors = ['#ffffff', '#fff4e6', '#ffdd00', '#ffaa00', '#ffcc80', '#e6f2ff'];
+  const darkStarColors = [
+    "#ffffff",
+    "#fff4e6",
+    "#ffdd00",
+    "#ffaa00",
+    "#ffcc80",
+    "#e6f2ff",
+  ];
+
+  const lightStarColors = [
+    "#150136",
+    "#090024",
+    "#5752ff",
+    "#3b35cc",
+    "#8b87ff",
+    "#17005c",
+  ];
 
   function resize() {
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
   }
 
-  // ==========================================
-  // CLASSE: ESTRELAS DE FUNDO
-  // ==========================================
+  /* 2.1 Classe Star: Gerencia o comportamento das estrelas descendentes */
   class Star {
     constructor() {
       this.init();
     }
 
     init() {
-      // Define a forma da estrela usando seus 3 desenhos originais
       this.type = Math.floor(Math.random() * 3) + 1;
-      
-      // PARTE IMPORTANTE 2: Lógica de Parallax (Tamanho define a velocidade)
-      let baseSize = Math.random() * 2 + 0.5; 
-      
+      let baseSize = Math.random() * 2 + 0.5;
+
       if (this.type === 1) this.size = baseSize * 2.5;
       else if (this.type === 2) this.size = baseSize * 1.8;
       else this.size = baseSize * 1.2;
 
       this.x = Math.random() * width;
       this.y = Math.random() * height;
-      this.baseSpeedX = (Math.random() - 0.5) * 0.1; 
-      this.baseSpeedY = baseSize * 0.3 + 0.1;       
-      
-      this.color = starColors[Math.floor(Math.random() * starColors.length)];
-      
-      // PARTE IMPORTANTE 3: Controle do brilho pulsante (Twinkle)
+      this.baseSpeedX = (Math.random() - 0.5) * 0.1;
+      this.baseSpeedY = baseSize * 0.4 + 0.2;
+
+      const isLightMode = document.body.classList.contains("light-mode");
+      const activeColors = isLightMode ? lightStarColors : darkStarColors;
+      this.color =
+        activeColors[Math.floor(Math.random() * activeColors.length)];
+
       this.maxOpacity = Math.random() * 0.7 + 0.3;
       this.opacity = this.maxOpacity;
       this.twinkleSpeed = Math.random() * 0.02 + 0.005;
@@ -72,15 +117,13 @@ if (canvas) {
 
     update() {
       this.x += this.baseSpeedX;
-      this.y -= this.baseSpeedY; // Faz as estrelas subirem
-      
-      // Pulsação suave usando a função Seno
+      this.y += this.baseSpeedY;
       this.twinklePhase += this.twinkleSpeed;
-      this.opacity = (Math.sin(this.twinklePhase) * 0.5 + 0.5) * this.maxOpacity;
+      this.opacity =
+        (Math.sin(this.twinklePhase) * 0.5 + 0.5) * this.maxOpacity;
 
-      // Recicla a estrela se ela sair da tela
-      if (this.y < -20) {
-        this.y = height + 20;
+      if (this.y > height + 20) {
+        this.y = -20;
         this.x = Math.random() * width;
       }
       if (this.x < -20) this.x = width + 20;
@@ -88,87 +131,56 @@ if (canvas) {
     }
 
     draw() {
-      ctx.save();
-      ctx.translate(this.x, this.y);
-      
-      // Adiciona o brilho externo
-      ctx.shadowBlur = this.size * 2;
-      ctx.shadowColor = this.color;
-      ctx.globalAlpha = this.opacity;
+      const alpha = this.opacity;
+      ctx.globalAlpha = alpha * 0.2;
       ctx.fillStyle = this.color;
-
-      // PARTE IMPORTANTE 4: Uso das SUAS funções de desenho
-      switch (this.type) {
-        case 1: this._drawType1(this.size); break;
-        case 2: this._drawType2(this.size); break;
-        case 3: this._drawType3(this.size); break;
-      }
-      
-      ctx.restore();
-    }
-
-    // --- Suas Funções Originais de Desenho de Estrelas ---
-    _drawType1(s) {
-      const drawTaper = (angle, len, thk) => {
-        ctx.save(); ctx.rotate(angle); ctx.beginPath();
-        ctx.moveTo(0, -thk / 2); ctx.lineTo(len, 0); ctx.lineTo(0, thk / 2);
-        ctx.fill(); ctx.restore();
-      };
-      ctx.rotate(Math.PI / 8); 
-      drawTaper(-Math.PI / 4, s * 2.2, s * 0.2);
-      drawTaper(3 * Math.PI / 4, s * 1.4, s * 0.2);
-      drawTaper(-3 * Math.PI / 4, s * 0.8, s * 0.15);
-      drawTaper(Math.PI / 4, s * 0.7, s * 0.15);
-    }
-
-    _drawType2(s) {
       ctx.beginPath();
-      for (let i = 0; i < 16; i++) {
-        let angle = i * Math.PI / 8 - Math.PI / 2;
-        let radius = (i % 4 === 0) ? s * 1.8 : (i % 2 === 0 ? s * 0.8 : s * 0.2);
-        if (i === 0) ctx.moveTo(Math.cos(angle) * radius, Math.sin(angle) * radius);
-        else ctx.lineTo(Math.cos(angle) * radius, Math.sin(angle) * radius);
-      }
+      ctx.arc(this.x, this.y, this.size * 1.5, 0, Math.PI * 2);
       ctx.fill();
+
+      ctx.globalAlpha = alpha;
+      this._drawFourPointStar(this.x, this.y, this.size);
+      ctx.globalAlpha = 1.0;
     }
 
-    _drawType3(s) {
+    /* 
+       Desenha uma estrela de 4 pontas geométrica
+       x, y: centro da estrela
+       s: tamanho base
+    */
+    _drawFourPointStar(x, y, s) {
       ctx.beginPath();
-      const vLen = s * 2.2; 
-      const hLen = s * 0.7; 
-      ctx.moveTo(0, -vLen);
-      ctx.quadraticCurveTo(0, 0, hLen, 0);
-      ctx.quadraticCurveTo(0, 0, 0, vLen);
-      ctx.quadraticCurveTo(0, 0, -hLen, 0);
-      ctx.quadraticCurveTo(0, 0, 0, -vLen);
+      ctx.moveTo(x, y - s * 2.5);
+      ctx.lineTo(x + s * 0.4, y - s * 0.4);
+      ctx.lineTo(x + s * 2.5, y);
+      ctx.lineTo(x + s * 0.4, y + s * 0.4);
+      ctx.lineTo(x, y + s * 2.5);
+      ctx.lineTo(x - s * 0.4, y + s * 0.4);
+      ctx.lineTo(x - s * 2.5, y);
+      ctx.lineTo(x - s * 0.4, y - s * 0.4);
       ctx.closePath();
       ctx.fill();
     }
   }
 
-  // ==========================================
-  // CLASSE: ESTRELA CADENTE
-  // ==========================================
+  /* 2.2 Classe ShootingStar: Gerencia os cometas aleatórios */
   class ShootingStar {
     constructor() {
       this.reset();
     }
-
     reset() {
       this.active = false;
-      // Define a raridade do evento (só atira se for > 0.993)
-      if(Math.random() > 0.993) {
+      if (Math.random() > 0.993) {
         this.active = true;
         this.x = Math.random() * width;
-        this.y = 0;
+        this.y = -50;
         this.size = Math.random() * 2 + 1;
         this.speedX = (Math.random() > 0.5 ? 1 : -1) * (Math.random() * 5 + 3);
-        this.speedY = Math.random() * 5 + 5;
-        this.len = Math.random() * 80 + 30; // Tamanho do rastro
+        this.speedY = Math.random() * 5 + 7;
+        this.len = Math.random() * 80 + 30;
         this.opacity = 1;
       }
     }
-
     update() {
       if (!this.active) {
         this.reset();
@@ -176,70 +188,75 @@ if (canvas) {
       }
       this.x += this.speedX;
       this.y += this.speedY;
-      this.opacity -= 0.015; // O rastro apaga gradualmente
-
-      if (this.opacity <= 0 || this.y > height || this.x < 0 || this.x > width) {
+      this.opacity -= 0.015;
+      if (
+        this.opacity <= 0 ||
+        this.y > height ||
+        this.x < 0 ||
+        this.x > width
+      ) {
         this.active = false;
       }
     }
-
     draw() {
       if (!this.active) return;
-      
       ctx.beginPath();
       ctx.moveTo(this.x, this.y);
-      ctx.lineTo(this.x - this.speedX * (this.len / 10), this.y - this.speedY * (this.len / 10));
+      ctx.lineTo(
+        this.x - this.speedX * (this.len / 5),
+        this.y - this.speedY * (this.len / 5),
+      );
       ctx.lineWidth = this.size;
       ctx.lineCap = "round";
-      
-      // PARTE IMPORTANTE 5: Criação do rastro com Degradê
-      let grad = ctx.createLinearGradient(this.x, this.y, this.x - this.speedX * (this.len / 10), this.y - this.speedY * (this.len / 10));
-      grad.addColorStop(0, `rgba(255, 255, 255, ${this.opacity})`);
-      grad.addColorStop(1, `rgba(255, 170, 0, 0)`);
-      
+      let grad = ctx.createLinearGradient(
+        this.x,
+        this.y,
+        this.x - this.speedX * (this.len / 10),
+        this.y - this.speedY * (this.len / 10),
+      );
+      if (document.body.classList.contains("light-mode")) {
+        grad.addColorStop(0, `rgba(21, 1, 54, ${this.opacity})`);
+        grad.addColorStop(1, `rgba(87, 82, 255, 0)`);
+      } else {
+        grad.addColorStop(0, `rgba(255, 255, 255, ${this.opacity})`);
+        grad.addColorStop(1, `rgba(255, 170, 0, 0)`);
+      }
       ctx.strokeStyle = grad;
       ctx.stroke();
     }
   }
 
-  // ==========================================
-  // LOOP DE INICIALIZAÇÃO
-  // ==========================================
+  /* 2.3 Gerenciamento e Ciclo de Animação */
   function initSpace() {
     resize();
     stars = [];
     shootingStars = [];
-    
-    // Controla a quantidade de estrelas na tela (ajuste o divisor 8000 para mais ou menos estrelas)
-    const numStars = Math.floor((width * height) / 8000); 
-    
+    const calculatedStars = Math.floor((width * height) / 12000);
+    const numStars = Math.min(calculatedStars, 150);
     for (let i = 0; i < numStars; i++) {
       stars.push(new Star());
     }
-
-    for(let i=0; i < 2; i++){
+    for (let i = 0; i < 2; i++) {
       shootingStars.push(new ShootingStar());
     }
   }
 
+  window.refreshSpace = initSpace;
+
   function animate() {
-    ctx.clearRect(0, 0, width, height); // Limpa o frame
-    
-    stars.forEach(star => {
+    ctx.clearRect(0, 0, width, height);
+    stars.forEach((star) => {
       star.update();
       star.draw();
     });
-
-    shootingStars.forEach(sStar => {
+    shootingStars.forEach((sStar) => {
       sStar.update();
       sStar.draw();
     });
-
     requestAnimationFrame(animate);
   }
 
-  window.addEventListener('resize', initSpace);
-  resize(); 
-  initSpace(); 
+  window.addEventListener("resize", initSpace);
+  initSpace();
   animate();
 }
